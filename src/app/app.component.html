@@ -1,0 +1,95 @@
+<div class="row">
+<div class="col-12 col-sm-12 col-md-12">
+<div class="search">
+  <form #form ="ngForm" (submit)="onSubmit()">
+    <input placeholder="search city name..." type="text" name="city"
+    [(ngModel)]="cityName">
+  </form>
+ </div>
+
+ <!-- <video autoplay muted loop id="sunrise" class="display-video">
+  <source src="./assets/sunrise.mp4" type="video/mp4">
+</video> -->
+
+
+
+<div class="container" *ngIf="weatherData"  [ngClass]="{ 'snowfall': condition < 10 ,'rain' : 10 <= condition && condition < 20,'clouds' : 20 <= condition && condition < 30,'sunlight' : 30 <= condition && condition < 35,'sunny' : condition >=35}"  >
+  <div class="upper-data">
+    <video autoplay muted loop id="sunrise" class="display-video"  *ngIf="weatherData.current.temperature <= 10">
+      <source src="../assets/snowfall.mp4" type="video/mp4">
+    </video>
+    <video autoplay muted loop id="sunrise" class="display-video"  *ngIf="weatherData.current.temperature >10 && weatherData.current.temperature <20 ">
+      <source src="../assets/rain.mp4" type="video/mp4">
+    </video>
+    <video autoplay muted loop id="sunrise" class="display-video"   *ngIf="weatherData.current.temperature >20 && weatherData.current.temperature <30 ">
+      <source src="../assets/clouds.mp4" type="video/mp4">
+    </video>
+    <video autoplay muted loop id="sunrise" class="display-video"  *ngIf="weatherData.current.temperature >=30 && weatherData.current.temperature <35 ">
+      <source src="../assets/sunlight(1).mp4" type="video/mp4">
+    </video>
+    <video autoplay muted loop id="sunrise" class="display-video"   *ngIf=" weatherData.current.temperature >=35 ">
+      <source src="../assets/sunlight (3).mp4" type="video/mp4">
+    </video>
+
+       <div class="weather-data">
+        <div class="location" [ngClass]="{'white' :  condition <30 , 'green' : condition>=30 && condition < 35 , 'red' : condition>=35}">
+          {{weatherData.location.name}}<br/>{{weatherData.current.weather_descriptions[0]}}</div>
+         <div class="temparature"  [ngClass]="{'white' : 0>condition && condition <30 , 'green' : condition>=30 && condition < 35 , 'red' : condition>=35}"> {{weatherData.current.temperature }} °C</div>
+       </div>
+  </div>
+  <div class="lower-data"  >
+    <div class="more-info-label">
+      More information
+    </div>
+    <div class="more-info-container"  [ngClass]="{ 'snowfallRim': condition <= 10 ,'rainRim' : 10 < condition && condition <= 20,'cloudsRim' : 20 < condition && condition < 30,'sunlightRim' : 30 <= condition && condition < 35,'sunnyRim' : condition >=35}" >
+      <div class="info-block">
+        <div class="info-block-label">
+          <i class="bi bi-thermometer bi-1x" style=" font-size:40px; color: aliceblue"></i>
+
+          <span>min</span>
+        </div>
+        <div class="info-block-value">
+        {{weatherData.current.temperature }}°C
+        </div>
+      </div>
+
+      <div class="info-block">
+        <div class="info-block-label">
+          <i class="bi bi-tornado bi-1x" style=" font-size:40px; color: aliceblue"></i>
+
+          <span>pressure</span>
+        </div>
+        <div class="info-block-value">
+          {{weatherData.current.pressure}}mbar
+        </div>
+      </div>
+
+      <div class="info-block">
+        <div class="info-block-label">
+          <i class="bi bi-moisture bi-1x" style=" font-size:40px; color: aliceblue"></i>
+
+          <span>humidity</span>
+        </div>
+        <div class="info-block-value">
+          {{weatherData.current.humidity}}%
+        </div>
+      </div>
+
+      <div class="info-block">
+        <div class="info-block-label">
+          <i class="bi bi-wind bi-1x" style=" font-size:40px; color: aliceblue"></i>
+
+          <span>wind</span>
+        </div>
+        <div class="info-block-value">
+          {{weatherData.current.wind_speed}}km/h
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<router-outlet></router-outlet>
